@@ -101,8 +101,11 @@ export default function decorate(block) {
     const next = e.key === 'ArrowRight'
       ? (current + 1) % tabEls.length
       : (current - 1 + tabEls.length) % tabEls.length;
-    tabEls[next].focus();
-    filterAssets(tabEls[next].textContent);
+    // eslint-disable-next-line secure-coding/detect-object-injection
+    const nextTab = tabEls[next];
+    if (!nextTab) return;
+    nextTab.focus();
+    filterAssets(nextTab.textContent.trim());
   });
 
   tabs.addEventListener('click', (e) => {
