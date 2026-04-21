@@ -14,14 +14,27 @@ export default function decorate(block) {
 
     const titleDiv = document.createElement('div');
     titleDiv.className = 'brand-chapters-title';
-    titleDiv.innerHTML = `
-      <div>
-        <div class="brand-chapters-accent" aria-hidden="true"></div>
-        <h2 class="brand-chapters-h2">${title}</h2>
-        <span class="brand-chapters-slug ic-eyebrow">${slug}</span>
-      </div>
-      <a href="${href}" class="brand-chapters-link">Open Chapter →</a>
-    `;
+    const accent = document.createElement('div');
+    accent.className = 'brand-chapters-accent';
+    accent.setAttribute('aria-hidden', 'true');
+
+    const h2 = document.createElement('h2');
+    h2.className = 'brand-chapters-h2';
+    h2.textContent = title;
+
+    const slugEl = document.createElement('span');
+    slugEl.className = 'brand-chapters-slug ic-eyebrow';
+    slugEl.textContent = slug;
+
+    const inner = document.createElement('div');
+    inner.append(accent, h2, slugEl);
+
+    const link = document.createElement('a');
+    link.className = 'brand-chapters-link';
+    link.href = href;
+    link.textContent = 'Open Chapter \u2192';
+
+    titleDiv.append(inner, link);
 
     const descDiv = document.createElement('div');
     descDiv.className = 'brand-chapters-desc';
