@@ -1,0 +1,132 @@
+.brand-nav-section {
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: var(--brand-nav-z);
+}
+
+.brand-nav-wrapper {
+  max-width: 100%;
+}
+
+.brand-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: var(--brand-nav-height);
+  background: var(--brand-nav-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--brand-nav-border);
+}
+
+.brand-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-nav-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.brand-nav-shield svg {
+  width: 35px;
+  height: 40px;
+  color: var(--text-color);
+}
+
+.brand-nav-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+}
+
+.brand-nav-name {
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.brand-nav-sub {
+  font-family: var(--body-font-family);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--highlight-color);
+}
+
+.brand-nav-divider {
+  width: 1px;
+  height: 20px;
+  background: rgb(245 244 240 / 20%);
+  flex-shrink: 0;
+}
+
+.brand-nav-system {
+  color: var(--dark-color);
+}
+
+.brand-nav-tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.brand-nav-tab {
+  padding: 10px 18px;
+  font-family: var(--body-font-family);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.brand-nav-tab:hover {
+  background: rgb(245 244 240 / 8%);
+}
+
+.brand-nav-tab.active {
+  background: var(--highlight-color);
+  color: #0d0d0d;
+}
+
+.brand-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand-nav-version {
+  color: var(--dark-color);
+}
+
+.brand-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: var(--highlight-color);
+  color: #0d0d0d;
+  font-family: var(--body-font-family);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.brand-nav-cta:hover {
+  background: var(--link-hover-color);
+  transform: translate(-1px, -1px);
+}

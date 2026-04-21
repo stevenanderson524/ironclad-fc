@@ -1,0 +1,6 @@
+:root {
+  --brand-nav-height: 64px;
+  --brand-nav-bg: rgb(13 13 13 / 95%);
+  --brand-nav-border: rgb(245 244 240 / 14%);
+  --brand-nav-z: 20;
+}
