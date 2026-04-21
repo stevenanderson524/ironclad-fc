@@ -1,0 +1,45 @@
+main .type-specimen .specimens-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+main .type-specimen .specimen {
+  border-bottom: 1px solid var(--secondary-color);
+  padding: 2rem 0;
+}
+
+main .type-specimen .specimen:last-child {
+  border-bottom: none;
+}
+
+main .type-specimen .specimen-sample {
+  margin: 0 0 1rem;
+  line-height: 1.1;
+  color: var(--text-color);
+  overflow-wrap: break-word;
+}
+
+main .type-specimen .specimen-meta {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+main .type-specimen .specimen-role {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--highlight-color);
+}
+
+main .type-specimen .specimen-detail {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  opacity: 0.5;
+  font-family: var(--fixed-font-family);
+}
