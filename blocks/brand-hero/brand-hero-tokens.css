@@ -1,0 +1,5 @@
+:root {
+  --brand-hero-padding: 80px 40px 40px;
+  --brand-hero-headline-size: clamp(88px, 11vw, 180px);
+  --brand-hero-corner-size: 32px;
+}
