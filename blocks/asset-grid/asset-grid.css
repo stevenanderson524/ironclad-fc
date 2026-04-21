@@ -23,7 +23,7 @@ main .asset-grid .asset-tab:hover,
 main .asset-grid .asset-tab.active {
   background: var(--highlight-color);
   border-color: var(--highlight-color);
-  color: var(--text-color);
+  color: var(--background-color);
 }
 
 main .asset-grid .asset-grid-list {
@@ -91,7 +91,7 @@ main .asset-grid .asset-download {
   margin-top: 0.75rem;
   padding: 0.4rem 0.75rem;
   background: var(--highlight-color);
-  color: var(--text-color);
+  color: var(--background-color);
   text-decoration: none;
   font-size: 0.7rem;
   text-transform: uppercase;

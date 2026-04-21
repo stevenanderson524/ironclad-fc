@@ -93,6 +93,18 @@ export default function decorate(block) {
     });
   }
 
+  tabs.addEventListener('keydown', (e) => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+    const tabEls = [...tabs.querySelectorAll('.asset-tab')];
+    const current = tabEls.indexOf(document.activeElement);
+    if (current === -1) return;
+    const next = e.key === 'ArrowRight'
+      ? (current + 1) % tabEls.length
+      : (current - 1 + tabEls.length) % tabEls.length;
+    tabEls[next].focus();
+    filterAssets(tabEls[next].textContent);
+  });
+
   tabs.addEventListener('click', (e) => {
     const btn = e.target.closest('.asset-tab');
     if (btn) filterAssets(btn.textContent);
