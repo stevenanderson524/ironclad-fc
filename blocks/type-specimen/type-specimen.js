@@ -1,8 +1,3 @@
-/**
- * Loads and decorates the type-specimen block.
- * Expects DA table rows: Role | Font Family | Weight | Size | Sample Text
- * @param {Element} block The block element
- */
 export default function decorate(block) {
   const rows = [...block.children];
   const specimens = rows.map((row) => {
@@ -16,38 +11,70 @@ export default function decorate(block) {
     };
   }).filter(({ sample }) => sample);
 
-  const list = document.createElement('ul');
-  list.className = 'specimens-list';
-  list.setAttribute('aria-label', 'Typography specimens');
+  const fontMap = {
+    'Roboto Slab': 'var(--heading-font-family)',
+    Roboto: 'var(--body-font-family)',
+    'Roboto Mono': 'var(--fixed-font-family)',
+  };
+
+  const table = document.createElement('div');
+  table.className = 'type-specimen-table';
+  table.setAttribute('aria-label', 'Typography specimens');
 
   specimens.forEach(({
     role, family, weight, size, sample,
   }) => {
-    const li = document.createElement('li');
-    li.className = 'specimen';
+    const row = document.createElement('div');
+    row.className = 'type-specimen-row';
+    const ff = fontMap[family] || family;
+    const isUpper = role === 'Headline' || role === 'Label / Eyebrow' || role === 'Eyebrow';
 
-    const sampleEl = document.createElement('p');
-    sampleEl.className = 'specimen-sample';
-    sampleEl.textContent = sample;
-    sampleEl.style.fontFamily = family;
-    sampleEl.style.fontWeight = weight;
-    sampleEl.style.fontSize = size;
+    const roleDiv = document.createElement('div');
+    roleDiv.className = 'type-specimen-role';
+    const accentBar = document.createElement('div');
+    accentBar.className = 'type-specimen-accent';
+    accentBar.setAttribute('aria-hidden', 'true');
+    const roleLabel = document.createElement('span');
+    roleLabel.className = 'ic-eyebrow';
+    roleLabel.textContent = role;
+    roleDiv.append(accentBar, roleLabel);
 
-    const meta = document.createElement('div');
-    meta.className = 'specimen-meta';
+    const sampleDiv = document.createElement('div');
+    sampleDiv.className = 'type-specimen-sample';
+    sampleDiv.style.fontFamily = ff;
+    sampleDiv.style.fontWeight = weight;
+    if (isUpper) sampleDiv.style.textTransform = 'uppercase';
+    sampleDiv.textContent = sample;
 
-    const roleEl = document.createElement('span');
-    roleEl.className = 'specimen-role';
-    roleEl.textContent = role;
+    const metaDiv = document.createElement('div');
+    metaDiv.className = 'type-specimen-meta';
+    [family.toUpperCase(), `WT ${weight}`, size].forEach((line) => {
+      const d = document.createElement('div');
+      d.textContent = line;
+      metaDiv.appendChild(d);
+    });
 
-    const detailEl = document.createElement('span');
-    detailEl.className = 'specimen-detail';
-    detailEl.textContent = `${family} ${weight}`;
-
-    meta.append(roleEl, detailEl);
-    li.append(sampleEl, meta);
-    list.append(li);
+    row.append(roleDiv, sampleDiv, metaDiv);
+    table.appendChild(row);
   });
 
-  block.replaceChildren(list);
+  const display = document.createElement('div');
+  display.className = 'type-specimen-display';
+
+  const displayLabel = document.createElement('div');
+  displayLabel.className = 'type-specimen-display-label ic-eyebrow';
+  displayLabel.textContent = '/ SPECIMEN · ROBOTO SLAB BLACK';
+
+  const alpha = document.createElement('div');
+  alpha.className = 'type-specimen-display-alpha';
+  alpha.setAttribute('aria-hidden', 'true');
+  alpha.innerHTML = 'A<em>a</em>B<em>b</em>C<em>c</em>D<em>d</em>';
+
+  const chars = document.createElement('div');
+  chars.className = 'type-specimen-display-chars';
+  chars.setAttribute('aria-hidden', 'true');
+  chars.textContent = '0123456789 · !?&@#%';
+
+  display.append(displayLabel, alpha, chars);
+  block.replaceChildren(table, display);
 }

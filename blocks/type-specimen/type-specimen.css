@@ -1,45 +1,118 @@
-main .type-specimen .specimens-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.type-specimen .type-specimen-table {
+  border: 1px solid rgb(245 244 240 / 14%);
 }
 
-main .type-specimen .specimen {
-  border-bottom: 1px solid var(--secondary-color);
-  padding: 2rem 0;
+.type-specimen .type-specimen-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 200px;
+  border-bottom: 1px solid rgb(245 244 240 / 14%);
 }
 
-main .type-specimen .specimen:last-child {
+.type-specimen .type-specimen-row:last-child {
   border-bottom: none;
 }
 
-main .type-specimen .specimen-sample {
-  margin: 0 0 1rem;
-  line-height: 1.1;
-  color: var(--text-color);
-  overflow-wrap: break-word;
-}
-
-main .type-specimen .specimen-meta {
+.type-specimen .type-specimen-role {
+  padding: 32px 24px;
+  border-right: 1px solid rgb(245 244 240 / 14%);
+  background: var(--background-color);
   display: flex;
-  gap: 1.5rem;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
-main .type-specimen .specimen-role {
-  font-size: 0.7rem;
-  font-weight: 500;
+.type-specimen .type-specimen-accent {
+  height: 3px;
+  width: 28px;
+  background: var(--highlight-color);
+  margin-bottom: 12px;
+}
+
+.type-specimen .type-specimen-role .ic-eyebrow {
+  color: var(--text-color);
+}
+
+.type-specimen .type-specimen-sample {
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  line-height: 1;
+  overflow: hidden;
+}
+
+.type-specimen .type-specimen-meta {
+  padding: 32px 24px;
+  border-left: 1px solid rgb(245 244 240 / 14%);
+  font-family: var(--fixed-font-family);
+  font-size: 12px;
+  color: rgb(245 244 240 / 55%);
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.type-specimen .type-specimen-display {
+  margin-top: 60px;
+  background: var(--background-color);
+  padding: 40px;
+  overflow: hidden;
+  border: 1px solid rgb(245 244 240 / 14%);
+}
+
+.type-specimen .type-specimen-display-label {
+  color: var(--highlight-color);
+  margin-bottom: 20px;
+}
+
+.type-specimen .type-specimen-display-alpha {
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 220px;
+  line-height: 0.82;
+  color: var(--text-color);
+  letter-spacing: -0.04em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+}
+
+.type-specimen .type-specimen-display-alpha em {
+  font-style: normal;
   color: var(--highlight-color);
 }
 
-main .type-specimen .specimen-detail {
-  font-size: 0.75rem;
+.type-specimen .type-specimen-display-chars {
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 60px;
+  line-height: 1;
   color: var(--text-color);
-  opacity: 0.5;
-  font-family: var(--fixed-font-family);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-top: 24px;
+}
+
+@media (width < 900px) {
+  .type-specimen .type-specimen-row {
+    grid-template-columns: 1fr;
+  }
+
+  .type-specimen .type-specimen-role {
+    border-right: none;
+    border-bottom: 1px solid rgb(245 244 240 / 14%);
+  }
+
+  .type-specimen .type-specimen-meta {
+    border-left: none;
+    border-top: 1px solid rgb(245 244 240 / 14%);
+  }
+
+  .type-specimen .type-specimen-display-alpha {
+    font-size: clamp(60px, 20vw, 160px);
+  }
+
+  .type-specimen .type-specimen-display-chars {
+    font-size: 32px;
+  }
 }

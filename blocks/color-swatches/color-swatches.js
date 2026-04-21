@@ -1,63 +1,77 @@
-/**
- * Loads and decorates the color-swatches block.
- * Expects DA table rows: Color Name | Hex | Usage
- * @param {Element} block The block element
- */
 export default function decorate(block) {
   const rows = [...block.children];
   const swatches = rows.map((row) => {
-    const [nameCell, hexCell, usageCell] = [...row.children];
+    const cells = [...row.children];
     return {
-      name: nameCell?.textContent.trim() || '',
-      hex: hexCell?.textContent.trim() || '',
-      usage: usageCell?.textContent.trim() || '',
+      name: cells[0]?.textContent.trim() || '',
+      hex: cells[1]?.textContent.trim() || '',
+      usage: cells[2]?.textContent.trim() || '',
     };
   }).filter(({ hex }) => hex);
 
-  const list = document.createElement('ul');
-  list.className = 'swatches-list';
-  list.setAttribute('aria-label', 'Brand color palette');
+  const grid = document.createElement('div');
+  grid.className = 'swatches-grid';
+  grid.setAttribute('aria-label', 'Brand colour palette');
 
   swatches.forEach(({ name, hex, usage }, i) => {
-    const li = document.createElement('li');
-    li.className = 'swatch';
-    li.style.setProperty('--swatch-delay', `${i * 60}ms`);
+    const col = document.createElement('div');
+    col.className = `swatches-col${i === 0 ? ' swatches-col-wide' : ''}`;
+    col.style.setProperty('--swatch-bg', hex);
 
-    const colorBlock = document.createElement('div');
-    colorBlock.className = 'swatch-color';
-    colorBlock.style.backgroundColor = hex;
-    colorBlock.setAttribute('aria-hidden', 'true');
+    const fg = hex === '#F5F4F0' || hex.toLowerCase() === '#ff6b35' ? '#0d0d0d' : '#f5f4f0';
 
-    const nameEl = document.createElement('p');
-    nameEl.className = 'swatch-name';
+    const nameEl = document.createElement('div');
+    nameEl.className = 'swatches-name';
+    nameEl.style.color = fg;
     nameEl.textContent = name;
 
-    const hexEl = document.createElement('p');
-    hexEl.className = 'swatch-hex';
+    const meta = document.createElement('div');
+    meta.className = 'swatches-meta';
+    meta.style.color = fg;
+
+    const hexEl = document.createElement('div');
+    hexEl.className = 'swatches-hex';
     hexEl.textContent = hex;
 
-    const usageEl = document.createElement('p');
-    usageEl.className = 'swatch-usage';
+    const usageEl = document.createElement('div');
+    usageEl.className = 'swatches-usage';
     usageEl.textContent = usage;
 
-    li.append(colorBlock, nameEl, hexEl, usageEl);
-    list.append(li);
+    meta.append(hexEl, usageEl);
+    col.append(nameEl, meta);
+    grid.appendChild(col);
   });
 
-  block.replaceChildren(list);
+  const ratioBar = document.createElement('div');
+  ratioBar.className = 'swatches-ratio';
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    list.querySelectorAll('.swatch').forEach((s) => s.classList.add('swatch-visible'));
-    return;
-  }
+  const ratioLabel = document.createElement('div');
+  ratioLabel.className = 'swatches-ratio-label ic-eyebrow';
+  ratioLabel.textContent = '/ USAGE RATIO · PRIMARY SURFACES';
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.swatch').forEach((s) => s.classList.add('swatch-visible'));
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  observer.observe(block);
+  const ratioBarEl = document.createElement('div');
+  ratioBarEl.className = 'swatches-ratio-bar';
+  ratioBarEl.setAttribute('aria-hidden', 'true');
+
+  const segs = [
+    { flex: 60, bg: '#0D0D0D', fg: '#F5F4F0', label: 'IRON BLACK · 60%' },
+    { flex: 25, bg: '#F5F4F0', fg: '#0D0D0D', label: 'FORGE WHITE · 25%' },
+    { flex: 10, bg: '#FF4500', fg: '#0D0D0D', label: 'ORANGE · 10%' },
+    { flex: 5,  bg: '#3A3A3A', fg: '#F5F4F0', label: 'STEEL · 5%' },
+  ];
+
+  segs.forEach(({ flex, bg, fg, label }) => {
+    const seg = document.createElement('div');
+    seg.className = 'swatches-ratio-seg';
+    seg.style.cssText = `flex: ${flex}; background: ${bg};`;
+    const span = document.createElement('span');
+    span.className = 'ic-eyebrow';
+    span.style.color = fg;
+    span.textContent = label;
+    seg.appendChild(span);
+    ratioBarEl.appendChild(seg);
+  });
+
+  ratioBar.append(ratioLabel, ratioBarEl);
+  block.replaceChildren(grid, ratioBar);
 }
