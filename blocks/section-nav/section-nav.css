@@ -1,0 +1,49 @@
+main .section-nav-wrapper {
+  position: sticky;
+  top: var(--nav-height, 64px);
+  z-index: 10;
+  padding: 0;
+  max-width: unset;
+}
+
+main .section-nav {
+  background: var(--background-color);
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+main .section-nav nav {
+  max-width: var(--max-width-site, 1200px);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main .section-nav ul {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main .section-nav li {
+  margin: 0;
+}
+
+main .section-nav a {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-color);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+main .section-nav a:hover,
+main .section-nav a.active {
+  color: var(--highlight-color);
+  border-bottom-color: var(--highlight-color);
+}
