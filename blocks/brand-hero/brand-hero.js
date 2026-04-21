@@ -24,7 +24,7 @@ export default function decorate(block) {
     <div class="brand-hero-headline">
       <h1 class="brand-hero-line1">${firstLine}</h1>
       <div class="brand-hero-line2-row">
-        <h1 class="brand-hero-line2">${lastWord}</h1>
+        <p class="brand-hero-line2">${lastWord}</p>
         <p class="brand-hero-body">${bodyHTML}</p>
       </div>
     </div>
