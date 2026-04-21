@@ -1,0 +1,115 @@
+.brand-chapters {
+  display: grid;
+  border: 1px solid var(--brand-chapters-border);
+}
+
+.brand-chapters-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.4fr 320px;
+  border-bottom: 1px solid var(--brand-chapters-border);
+  min-height: var(--brand-chapters-min-height);
+}
+
+.brand-chapters-row:last-child {
+  border-bottom: none;
+}
+
+.brand-chapters-title {
+  padding: 40px;
+  border-right: 1px solid var(--brand-chapters-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand-chapters-accent {
+  height: 4px;
+  width: 40px;
+  background: var(--highlight-color);
+  margin-bottom: 20px;
+}
+
+.brand-chapters-h2 {
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: 64px;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  margin: 0 0 14px;
+}
+
+.brand-chapters-slug {
+  color: var(--highlight-color);
+  display: block;
+}
+
+.brand-chapters-link {
+  font-family: var(--body-font-family);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--highlight-color);
+  text-decoration: none;
+  margin-top: 24px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.brand-chapters-link:hover {
+  border-bottom-color: var(--link-hover-color);
+  color: var(--link-hover-color);
+}
+
+.brand-chapters-desc {
+  padding: 40px;
+  border-right: 1px solid var(--brand-chapters-border);
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.brand-chapters-stats {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.brand-chapters-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--fixed-font-family);
+  font-size: 12px;
+  color: var(--text-color);
+  letter-spacing: 0.06em;
+}
+
+.brand-chapters-stat-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--highlight-color);
+  flex-shrink: 0;
+}
+
+@media (width < 900px) {
+  .brand-chapters-row {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-chapters-title,
+  .brand-chapters-desc {
+    border-right: none;
+    border-bottom: 1px solid var(--brand-chapters-border);
+  }
+
+  .brand-chapters-h2 {
+    font-size: 40px;
+  }
+}
