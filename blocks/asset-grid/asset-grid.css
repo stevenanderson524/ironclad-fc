@@ -101,7 +101,7 @@
 }
 
 .asset-grid .asset-card-dl:hover {
-  background: var(--link-hover-color);
+  background: var(--hover-color);
 }
 
 /* ─── Production variant ─── */

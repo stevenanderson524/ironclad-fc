@@ -1,14 +1,3 @@
-export default function decorate(block) {
-  const isProduction = block.classList.contains('production');
-  const rows = [...block.children];
-
-  if (isProduction) {
-    decorateProduction(block, rows);
-  } else {
-    decorateAvailable(block, rows);
-  }
-}
-
 function decorateAvailable(block, rows) {
   const assets = rows.map((row) => {
     const cells = [...row.children];
@@ -35,7 +24,13 @@ function decorateAvailable(block, rows) {
       if (img) img.loading = 'lazy';
     }
 
-    const isExternal = href.startsWith('http');
+    const isExternal = (() => {
+      try {
+        return new URL(href).origin !== window.location.origin;
+      } catch {
+        return false;
+      }
+    })();
     const ctaLabel = isExternal ? 'Open Google Fonts ↗' : 'Download ↓';
 
     const preview = document.createElement('div');
@@ -77,7 +72,7 @@ function decorateAvailable(block, rows) {
     dl.setAttribute('aria-label', `${ctaLabel} ${name}`);
     if (isExternal) {
       dl.target = '_blank';
-      dl.rel = 'noopener';
+      dl.rel = 'noopener noreferrer';
     }
 
     body.append(catEl, nameEl, specEl, dl);
@@ -110,38 +105,6 @@ function decorateProduction(block, rows) {
 
   const grid = document.createElement('div');
   grid.className = 'asset-prod-grid';
-
-  function renderFilters() {
-    while (filterBar.firstChild) filterBar.removeChild(filterBar.firstChild);
-
-    allCats.forEach((cat) => {
-      const count = cat === 'ALL' ? assets.length : assets.filter((a) => a.category === cat).length;
-      const btn = document.createElement('button');
-      btn.className = `asset-prod-filter${cat === activeFilter ? ' active' : ''}`;
-      btn.setAttribute('role', 'tab');
-      btn.setAttribute('aria-selected', String(cat === activeFilter));
-      btn.dataset.cat = cat;
-      btn.textContent = `${cat} · ${count}`;
-      btn.addEventListener('click', () => {
-        activeFilter = cat;
-        renderFilters();
-        renderGrid();
-      });
-      filterBar.appendChild(btn);
-    });
-
-    filterBar.addEventListener('keydown', (e) => {
-      if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
-      const btns = [...filterBar.querySelectorAll('.asset-prod-filter')];
-      const idx = btns.indexOf(document.activeElement);
-      if (idx === -1) return;
-      const next = e.key === 'ArrowRight' ? (idx + 1) % btns.length : (idx - 1 + btns.length) % btns.length;
-      btns[next]?.focus();
-      activeFilter = btns[next]?.dataset.cat || activeFilter;
-      renderFilters();
-      renderGrid();
-    });
-  }
 
   function renderGrid() {
     const shown = activeFilter === 'ALL' ? assets : assets.filter((a) => a.category === activeFilter);
@@ -206,7 +169,50 @@ function decorateProduction(block, rows) {
     });
   }
 
+  function renderFilters() {
+    while (filterBar.firstChild) filterBar.removeChild(filterBar.firstChild);
+
+    allCats.forEach((cat) => {
+      const count = cat === 'ALL' ? assets.length : assets.filter((a) => a.category === cat).length;
+      const btn = document.createElement('button');
+      btn.className = `asset-prod-filter${cat === activeFilter ? ' active' : ''}`;
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', String(cat === activeFilter));
+      btn.dataset.cat = cat;
+      btn.textContent = `${cat} · ${count}`;
+      btn.addEventListener('click', () => {
+        activeFilter = cat;
+        renderFilters();
+        renderGrid();
+      });
+      filterBar.appendChild(btn);
+    });
+  }
+
+  filterBar.addEventListener('keydown', (e) => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+    const btns = [...filterBar.querySelectorAll('.asset-prod-filter')];
+    const idx = btns.indexOf(document.activeElement);
+    if (idx === -1) return;
+    const next = e.key === 'ArrowRight' ? (idx + 1) % btns.length : (idx - 1 + btns.length) % btns.length;
+    btns[next]?.focus();
+    activeFilter = btns[next]?.dataset.cat || activeFilter;
+    renderFilters();
+    renderGrid();
+  });
+
   renderFilters();
   renderGrid();
   block.replaceChildren(filterBar, grid);
+}
+
+export default function decorate(block) {
+  const isProduction = block.classList.contains('production');
+  const rows = [...block.children];
+
+  if (isProduction) {
+    decorateProduction(block, rows);
+  } else {
+    decorateAvailable(block, rows);
+  }
 }
