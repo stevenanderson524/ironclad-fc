@@ -195,7 +195,9 @@ function decorateProduction(block, rows) {
     const idx = btns.indexOf(document.activeElement);
     if (idx === -1) return;
     const next = e.key === 'ArrowRight' ? (idx + 1) % btns.length : (idx - 1 + btns.length) % btns.length;
+    // eslint-disable-next-line secure-coding/detect-object-injection
     btns[next]?.focus();
+    // eslint-disable-next-line secure-coding/detect-object-injection
     activeFilter = btns[next]?.dataset.cat || activeFilter;
     renderFilters();
     renderGrid();

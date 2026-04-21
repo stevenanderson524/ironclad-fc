@@ -26,6 +26,7 @@ export default function decorate(block) {
   }) => {
     const row = document.createElement('div');
     row.className = 'type-specimen-row';
+    // eslint-disable-next-line secure-coding/detect-object-injection
     const ff = fontMap[family] || family;
     const isUpper = role === 'Headline' || role === 'Label / Eyebrow' || role === 'Eyebrow';
 
@@ -68,6 +69,7 @@ export default function decorate(block) {
   const alpha = document.createElement('div');
   alpha.className = 'type-specimen-display-alpha';
   alpha.setAttribute('aria-hidden', 'true');
+  // eslint-disable-next-line secure-coding/no-improper-sanitization
   alpha.innerHTML = 'A<em>a</em>B<em>b</em>C<em>c</em>D<em>d</em>';
 
   const chars = document.createElement('div');

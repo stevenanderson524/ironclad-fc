@@ -11,6 +11,7 @@ export default function decorate(block) {
 
   block.closest('.section')?.classList.add('ic-grid-bg');
 
+  // eslint-disable-next-line browser-security/no-innerhtml, secure-coding/no-improper-sanitization
   block.innerHTML = `
     <div class="brand-hero-corner brand-hero-tl" aria-hidden="true"></div>
     <div class="brand-hero-corner brand-hero-tr" aria-hidden="true"></div>

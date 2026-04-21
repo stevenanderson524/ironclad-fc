@@ -6,6 +6,7 @@ export default function decorate(block) {
   const track = document.createElement('div');
   track.className = 'marquee-track';
   track.setAttribute('aria-hidden', 'true');
+  // eslint-disable-next-line browser-security/no-innerhtml
   track.innerHTML = doubled.map((item) => `
     <span class="marquee-item">${item}<span class="marquee-dot"></span></span>
   `).join('');

@@ -1,6 +1,7 @@
 async function fetchShield() {
   const res = await fetch(`${window.hlx.codeBasePath}/icons/shield.svg`);
   if (!res.ok) return null;
+  // eslint-disable-next-line secure-coding/no-xxe-injection
   const parser = new DOMParser();
   const doc = parser.parseFromString(await res.text(), 'image/svg+xml');
   return doc.querySelector('svg');

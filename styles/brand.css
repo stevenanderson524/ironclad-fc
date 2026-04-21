@@ -10,8 +10,8 @@
 
 .ic-grid-bg {
   background-image:
-    linear-gradient(rgba(245, 244, 240, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(245, 244, 240, 0.04) 1px, transparent 1px);
+    linear-gradient(rgb(245 244 240 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(245 244 240 / 4%) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
