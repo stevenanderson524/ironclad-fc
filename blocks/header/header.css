@@ -141,9 +141,16 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 header .nav-brand {
   grid-area: brand;
   flex-basis: var(--header-brand-width);
+  font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-s);
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+header .nav-brand a {
+  color: var(--text-color);
 }
 
 header nav .nav-brand img {
@@ -168,11 +175,17 @@ header nav[aria-expanded='true'] .nav-sections {
 header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
-  font-size: var(--body-font-size-s);
+  font-size: var(--body-font-size-xs);
 }
 
 header nav .nav-sections ul > li {
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+header nav .nav-sections a:hover {
+  color: var(--highlight-color);
 }
 
 header nav .nav-sections ul > li > ul {
@@ -283,6 +296,24 @@ header nav .nav-tools .button {
   padding: 0.5em;
   background: none;
   line-height: 0;
+}
+
+header nav .nav-tools a:not(.button) {
+  display: inline-block;
+  padding: 0.45em 1.1em;
+  background-color: var(--highlight-color);
+  color: var(--background-color);
+  font-weight: 700;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  transition: background-color 0.15s;
+}
+
+header nav .nav-tools a:not(.button):hover {
+  background-color: var(--hover-color);
+  color: var(--background-color);
 }
 
 /* breadcrumbs */

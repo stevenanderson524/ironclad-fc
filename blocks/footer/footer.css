@@ -2,22 +2,72 @@
 
 footer {
   background-color: var(--background-color);
-  border-top: 1px solid var(--secondary-color);
+  border-top: 2px solid var(--highlight-color);
   font-size: var(--body-font-size-xs);
+  color: var(--text-color);
 }
 
 footer .footer > div {
   margin: auto;
   max-width: var(--footer-max-width);
   padding: var(--footer-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
+/* Nav links row */
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
+
+footer ul li a {
+  color: var(--dark-color);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.15s;
+}
+
+footer ul li a:hover {
+  color: var(--highlight-color);
+}
+
+/* Bottom row: copyright + tagline */
 footer .footer p {
   margin: 0;
+  color: var(--dark-color);
+}
+
+/* "Iron Will. Ironclad." — treated as the club motto */
+footer .footer p:last-child {
+  font-family: var(--heading-font-family);
+  font-weight: 900;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--highlight-color);
 }
 
 @media (width >= 900px) {
   footer .footer > div {
     padding: var(--footer-padding-desktop);
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  footer ul {
+    flex: 1;
+  }
+
+  footer .footer p:last-child {
+    text-align: right;
+    white-space: nowrap;
   }
 }
