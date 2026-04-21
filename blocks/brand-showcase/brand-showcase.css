@@ -55,6 +55,13 @@ main .brand-showcase .showcase-label {
   color: var(--highlight-color);
 }
 
+main .brand-showcase .showcase-item.showcase-placeholder .showcase-overlay {
+  opacity: 1;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+
 @media (width >= 600px) {
   main .brand-showcase .showcase-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

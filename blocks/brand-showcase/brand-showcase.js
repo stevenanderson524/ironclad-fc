@@ -12,7 +12,7 @@ export default function decorate(block) {
       picture,
       label: labelCell?.textContent.trim() || '',
     };
-  }).filter(({ picture }) => picture);
+  }).filter(({ label }) => label);
 
   const grid = document.createElement('ul');
   grid.className = 'showcase-grid';
@@ -22,10 +22,15 @@ export default function decorate(block) {
     const li = document.createElement('li');
     li.className = 'showcase-item';
 
-    const img = picture.querySelector('img');
-    if (img) {
-      img.loading = 'lazy';
-      if (!img.alt) img.alt = label;
+    if (picture) {
+      const img = picture.querySelector('img');
+      if (img) {
+        img.loading = 'lazy';
+        if (!img.alt) img.alt = label;
+      }
+      li.append(picture);
+    } else {
+      li.classList.add('showcase-placeholder');
     }
 
     const overlay = document.createElement('div');
@@ -37,7 +42,7 @@ export default function decorate(block) {
     labelEl.textContent = label;
     overlay.append(labelEl);
 
-    li.append(picture, overlay);
+    li.append(overlay);
     grid.append(li);
   });
 
