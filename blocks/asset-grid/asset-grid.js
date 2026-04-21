@@ -1,117 +1,212 @@
-/**
- * Loads and decorates the asset-grid block.
- * Expects DA table rows: Category | Name | Thumbnail Image | Format | Download Link
- * @param {Element} block The block element
- */
 export default function decorate(block) {
+  const isProduction = block.classList.contains('production');
   const rows = [...block.children];
+
+  if (isProduction) {
+    decorateProduction(block, rows);
+  } else {
+    decorateAvailable(block, rows);
+  }
+}
+
+function decorateAvailable(block, rows) {
   const assets = rows.map((row) => {
     const cells = [...row.children];
     return {
       category: cells[0]?.textContent.trim() || '',
       name: cells[1]?.textContent.trim() || '',
       picture: cells[2]?.querySelector('picture') || null,
-      format: cells[3]?.textContent.trim() || '',
-      link: cells[4]?.querySelector('a') || null,
+      spec: cells[3]?.textContent.trim() || '',
+      href: cells[4]?.querySelector('a')?.href || cells[4]?.textContent.trim() || '#',
     };
   }).filter(({ name }) => name);
 
-  const categories = [...new Set(assets.map((a) => a.category))].filter(Boolean);
-
-  // Build filter tabs
-  const tabs = document.createElement('div');
-  tabs.className = 'asset-tabs';
-  tabs.setAttribute('role', 'tablist');
-  tabs.setAttribute('aria-label', 'Filter assets by category');
-
-  const allBtn = document.createElement('button');
-  allBtn.className = 'asset-tab active';
-  allBtn.textContent = 'All';
-  allBtn.setAttribute('role', 'tab');
-  allBtn.setAttribute('aria-selected', 'true');
-  tabs.append(allBtn);
-
-  categories.forEach((cat) => {
-    const btn = document.createElement('button');
-    btn.className = 'asset-tab';
-    btn.textContent = cat;
-    btn.setAttribute('role', 'tab');
-    btn.setAttribute('aria-selected', 'false');
-    tabs.append(btn);
-  });
-
-  // Build grid
-  const grid = document.createElement('ul');
-  grid.className = 'asset-grid-list';
+  const grid = document.createElement('div');
+  grid.className = 'asset-grid-available';
 
   assets.forEach(({
-    category, name, picture, format, link,
+    category, name, picture, spec, href,
   }) => {
-    const li = document.createElement('li');
-    li.className = 'asset-card';
-    li.dataset.category = category;
+    const card = document.createElement('div');
+    card.className = 'asset-card';
 
     if (picture) {
       const img = picture.querySelector('img');
       if (img) img.loading = 'lazy';
-      li.append(picture);
     }
+
+    const isExternal = href.startsWith('http');
+    const ctaLabel = isExternal ? 'Open Google Fonts ↗' : 'Download ↓';
+
+    const preview = document.createElement('div');
+    preview.className = 'asset-card-preview';
+
+    if (picture) {
+      preview.appendChild(picture);
+    } else {
+      const noimg = document.createElement('div');
+      noimg.className = 'asset-card-noimg';
+      noimg.setAttribute('aria-hidden', 'true');
+      preview.appendChild(noimg);
+    }
+
+    const badge = document.createElement('span');
+    badge.className = 'asset-card-badge';
+    badge.textContent = 'AVAILABLE';
+    preview.appendChild(badge);
 
     const body = document.createElement('div');
     body.className = 'asset-card-body';
 
-    const nameEl = document.createElement('p');
-    nameEl.className = 'asset-name';
+    const catEl = document.createElement('span');
+    catEl.className = 'ic-eyebrow asset-card-cat';
+    catEl.textContent = category;
+
+    const nameEl = document.createElement('h3');
+    nameEl.className = 'asset-card-name';
     nameEl.textContent = name;
 
-    const formatEl = document.createElement('p');
-    formatEl.className = 'asset-format';
-    formatEl.textContent = format;
+    const specEl = document.createElement('div');
+    specEl.className = 'asset-card-spec';
+    specEl.textContent = spec;
 
-    body.append(nameEl, formatEl);
-
-    if (link) {
-      link.className = 'asset-download';
-      link.textContent = 'Download';
-      link.setAttribute('aria-label', `Download ${name}`);
-      body.append(link);
+    const dl = document.createElement('a');
+    dl.className = 'asset-card-dl';
+    dl.href = href;
+    dl.textContent = ctaLabel;
+    dl.setAttribute('aria-label', `${ctaLabel} ${name}`);
+    if (isExternal) {
+      dl.target = '_blank';
+      dl.rel = 'noopener';
     }
 
-    li.append(body);
-    grid.append(li);
+    body.append(catEl, nameEl, specEl, dl);
+    card.append(preview, body);
+    grid.appendChild(card);
   });
 
-  // Client-side filter
-  function filterAssets(category) {
-    grid.querySelectorAll('.asset-card').forEach((card) => {
-      card.hidden = category !== 'All' && card.dataset.category !== category;
+  block.replaceChildren(grid);
+}
+
+function decorateProduction(block, rows) {
+  const assets = rows.map((row) => {
+    const cells = [...row.children];
+    return {
+      category: cells[0]?.textContent.trim() || '',
+      name: cells[1]?.textContent.trim() || '',
+      spec: cells[2]?.textContent.trim() || '',
+      phase: cells[3]?.textContent.trim() || '',
+      tool: cells[4]?.textContent.trim() || '',
+    };
+  }).filter(({ name }) => name);
+
+  const allCats = ['ALL', ...new Set(assets.map((a) => a.category))].filter(Boolean);
+  let activeFilter = 'ALL';
+
+  const filterBar = document.createElement('div');
+  filterBar.className = 'asset-prod-filters';
+  filterBar.setAttribute('role', 'tablist');
+  filterBar.setAttribute('aria-label', 'Filter production assets by category');
+
+  const grid = document.createElement('div');
+  grid.className = 'asset-prod-grid';
+
+  function renderFilters() {
+    while (filterBar.firstChild) filterBar.removeChild(filterBar.firstChild);
+
+    allCats.forEach((cat) => {
+      const count = cat === 'ALL' ? assets.length : assets.filter((a) => a.category === cat).length;
+      const btn = document.createElement('button');
+      btn.className = `asset-prod-filter${cat === activeFilter ? ' active' : ''}`;
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', String(cat === activeFilter));
+      btn.dataset.cat = cat;
+      btn.textContent = `${cat} · ${count}`;
+      btn.addEventListener('click', () => {
+        activeFilter = cat;
+        renderFilters();
+        renderGrid();
+      });
+      filterBar.appendChild(btn);
     });
-    tabs.querySelectorAll('.asset-tab').forEach((btn) => {
-      const selected = btn.textContent === category;
-      btn.classList.toggle('active', selected);
-      btn.setAttribute('aria-selected', String(selected));
+
+    filterBar.addEventListener('keydown', (e) => {
+      if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+      const btns = [...filterBar.querySelectorAll('.asset-prod-filter')];
+      const idx = btns.indexOf(document.activeElement);
+      if (idx === -1) return;
+      const next = e.key === 'ArrowRight' ? (idx + 1) % btns.length : (idx - 1 + btns.length) % btns.length;
+      btns[next]?.focus();
+      activeFilter = btns[next]?.dataset.cat || activeFilter;
+      renderFilters();
+      renderGrid();
     });
   }
 
-  tabs.addEventListener('keydown', (e) => {
-    if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
-    const tabEls = [...tabs.querySelectorAll('.asset-tab')];
-    const current = tabEls.indexOf(document.activeElement);
-    if (current === -1) return;
-    const next = e.key === 'ArrowRight'
-      ? (current + 1) % tabEls.length
-      : (current - 1 + tabEls.length) % tabEls.length;
-    // eslint-disable-next-line secure-coding/detect-object-injection
-    const nextTab = tabEls[next];
-    if (!nextTab) return;
-    nextTab.focus();
-    filterAssets(nextTab.textContent.trim());
-  });
+  function renderGrid() {
+    const shown = activeFilter === 'ALL' ? assets : assets.filter((a) => a.category === activeFilter);
+    while (grid.firstChild) grid.removeChild(grid.firstChild);
 
-  tabs.addEventListener('click', (e) => {
-    const btn = e.target.closest('.asset-tab');
-    if (btn) filterAssets(btn.textContent);
-  });
+    shown.forEach(({
+      category, name, spec, phase, tool,
+    }) => {
+      const format = spec.split(' · ')[1] || spec.split(' · ')[0] || '';
 
-  block.replaceChildren(tabs, grid);
+      const brief = document.createElement('div');
+      brief.className = 'asset-brief';
+
+      const slot = document.createElement('div');
+      slot.className = 'asset-brief-slot';
+      slot.setAttribute('aria-hidden', 'true');
+
+      const phaseEl = document.createElement('span');
+      phaseEl.className = 'asset-brief-phase ic-eyebrow';
+      phaseEl.textContent = phase;
+
+      const formatEl = document.createElement('span');
+      formatEl.className = 'asset-brief-format';
+      formatEl.textContent = format;
+
+      slot.append(phaseEl, formatEl);
+
+      const body = document.createElement('div');
+      body.className = 'asset-brief-body';
+
+      const header = document.createElement('div');
+      header.className = 'asset-brief-header';
+
+      const catEl = document.createElement('span');
+      catEl.className = 'ic-eyebrow asset-card-cat';
+      catEl.textContent = category;
+
+      const toolEl = document.createElement('span');
+      toolEl.className = 'asset-brief-tool';
+      toolEl.textContent = tool;
+
+      header.append(catEl, toolEl);
+
+      const nameEl = document.createElement('h3');
+      nameEl.className = 'asset-brief-name';
+      nameEl.textContent = name;
+
+      const footer = document.createElement('div');
+      footer.className = 'asset-brief-footer';
+
+      const specEl = document.createElement('span');
+      specEl.textContent = spec;
+
+      const statusEl = document.createElement('span');
+      statusEl.className = 'asset-brief-status';
+      statusEl.textContent = 'IN PRODUCTION →';
+
+      footer.append(specEl, statusEl);
+      body.append(header, nameEl, footer);
+      brief.append(slot, body);
+      grid.appendChild(brief);
+    });
+  }
+
+  renderFilters();
+  renderGrid();
+  block.replaceChildren(filterBar, grid);
 }
