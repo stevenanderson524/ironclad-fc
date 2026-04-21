@@ -459,6 +459,26 @@ async function loadThemeSpreadSheetConfig() {
 */
 
 /**
+ * Adds scroll-triggered reveal animation to all main sections.
+ * Skipped when prefers-reduced-motion is set.
+ */
+function initScrollReveal() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('main .section').forEach((section) => {
+    section.classList.add('reveal');
+    observer.observe(section);
+  });
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
@@ -501,6 +521,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  initScrollReveal();
 }
 
 /**

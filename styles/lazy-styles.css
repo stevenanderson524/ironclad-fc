@@ -10,3 +10,47 @@
   border-color: var(--highlight-color);
   box-shadow: 0 16px 40px rgb(255 69 0 / 12%);
 }
+
+/* scroll reveal — sections animate in as they enter the viewport */
+main .section.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+main .section.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* heading accent — Iron Orange underline animates in when section is visible */
+main .section h2 {
+  position: relative;
+}
+
+main .section h2::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 0;
+  background: var(--highlight-color);
+  margin-top: 0.4em;
+  transition: width 0.4s ease-out 0.2s;
+}
+
+main .section.is-visible h2::after {
+  width: 48px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main .section.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  main .section h2::after {
+    width: 48px;
+    transition: none;
+  }
+}
