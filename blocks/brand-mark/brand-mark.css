@@ -1,0 +1,96 @@
+.brand-mark-contexts {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: stretch;
+}
+
+.brand-mark-context {
+  border: 1px solid var(--brand-mark-border);
+  padding: 60px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 520px;
+}
+
+.brand-mark-primary {
+  background: #0d0d0d;
+}
+
+.brand-mark-primary svg {
+  width: var(--brand-mark-primary-size);
+  height: calc(var(--brand-mark-primary-size) * 1.14);
+  color: var(--text-color);
+}
+
+.brand-mark-variants {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+}
+
+.brand-mark-reversed {
+  background: var(--text-color);
+}
+
+.brand-mark-reversed svg {
+  width: var(--brand-mark-variant-size);
+  height: calc(var(--brand-mark-variant-size) * 1.14);
+  color: #0d0d0d;
+
+  --shield-accent: #ff4500;
+}
+
+.brand-mark-emergency {
+  background: var(--highlight-color);
+}
+
+.brand-mark-emergency svg {
+  width: var(--brand-mark-variant-size);
+  height: calc(var(--brand-mark-variant-size) * 1.14);
+  color: #0d0d0d;
+
+  --shield-accent: #0d0d0d;
+}
+
+.brand-mark-label {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: var(--highlight-color);
+}
+
+.brand-mark-reversed .brand-mark-label,
+.brand-mark-emergency .brand-mark-label {
+  color: var(--secondary-color);
+}
+
+.brand-mark-usage {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: rgb(245 244 240 / 55%);
+}
+
+.brand-mark-file {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: rgb(245 244 240 / 55%);
+}
+
+.brand-mark-error {
+  color: var(--highlight-color);
+  font-family: var(--fixed-font-family);
+  font-size: 13px;
+  padding: 24px;
+  border: 1px dashed var(--highlight-color);
+}
+
+@media (width < 900px) {
+  .brand-mark-contexts {
+    grid-template-columns: 1fr;
+  }
+}
