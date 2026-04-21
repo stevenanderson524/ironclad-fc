@@ -219,6 +219,15 @@ export default async function decorate(block) {
       buttonContainer.classList.remove('button-container');
       buttonContainer.querySelector('.button').classList.remove('button');
     });
+
+    // mark current page link
+    navSections.querySelectorAll('a').forEach((link) => {
+      try {
+        if (new URL(link.href).pathname === window.location.pathname) {
+          link.setAttribute('aria-current', 'page');
+        }
+      } catch { /* invalid href — skip */ }
+    });
   }
 
   const navTools = nav.querySelector('.nav-tools');

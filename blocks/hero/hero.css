@@ -1,5 +1,9 @@
 @import url('./hero-tokens.css');
 
+.hero-container {
+  padding: 0;
+}
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -7,13 +11,15 @@
 
 .hero {
   position: relative;
-  padding: var(--hero-padding);
+  isolation: isolate; /* stacking context — keeps z-index local and picture visible */
   min-height: var(--hero-min-height);
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--hero-padding);
 }
 
-/* gradient scrim — dark bottom fade keeps text legible over any image */
+/* scrim: dark gradient sits between image (z-index -1) and text (z-index 1) */
 .hero::after {
   content: '';
   position: absolute;
@@ -28,8 +34,8 @@
   pointer-events: none;
 }
 
+/* flex items get z-index without position: relative — picture still resolves to .hero */
 .hero > div {
-  position: relative;
   z-index: 1;
   width: 100%;
 }
@@ -44,6 +50,7 @@
   letter-spacing: -0.01em;
 }
 
+/* picture is absolute inside .hero (not .hero > div — that has no position) */
 .hero picture {
   position: absolute;
   z-index: -1;

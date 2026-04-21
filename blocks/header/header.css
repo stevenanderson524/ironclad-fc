@@ -265,6 +265,13 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
+/* active nav link */
+header nav .nav-sections a[aria-current='page'] {
+  color: var(--highlight-color);
+  border-bottom: 2px solid var(--highlight-color);
+  padding-bottom: 2px;
+}
+
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
