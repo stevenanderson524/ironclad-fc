@@ -1,6 +1,6 @@
 /* tabs design tokens */
 :root {
   --tabs-panel-padding: 24px;
-  --tabs-border-color: #dadada;
+  --tabs-border-color: var(--secondary-color);
   --tabs-transition-duration: 0.2s;
 }

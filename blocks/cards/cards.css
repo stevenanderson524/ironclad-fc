@@ -11,7 +11,7 @@
 
 .cards > ul > li {
   border: var(--cards-card-border-width) solid var(--cards-card-border-color);
-  background-color: var(--background-color);
+  background-color: var(--cards-card-background-color);
 }
 
 .cards .cards-card-body {

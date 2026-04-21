@@ -11,18 +11,23 @@
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
-  --overlay-background-color:lightgrey;
+  /* brand palette */
+  --background-color: #0d0d0d;       /* Iron Black */
+  --light-color: #3a3a3a;            /* Steel — elevated surfaces, dropdowns, code bg */
+  --dark-color: #8a8a8a;             /* mid-gray — muted/secondary text */
+  --text-color: #f5f4f0;             /* Forge White */
+  --link-color: #ff4500;             /* Iron Orange */
+  --link-hover-color: #ff6b35;       /* Ember */
+  --overlay-background-color: #3a3a3a;
+
+  /* canonical brand tokens */
+  --highlight-color: #ff4500;        /* Iron Orange */
+  --secondary-color: #3a3a3a;        /* Steel */
+  --hover-color: #ff6b35;            /* Ember */
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  --heading-font-family: roboto-slab, roboto-slab-fallback, serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -50,6 +55,12 @@
 }
 
 /* fallback fonts */
+@font-face {
+  font-family: roboto-slab-fallback;
+  size-adjust: 96%;
+  src: local('Georgia');
+}
+
 @font-face {
   font-family: roboto-condensed-fallback;
   size-adjust: 88.82%;
@@ -122,7 +133,7 @@ h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
+  font-weight: 900;
   line-height: 1.25;
   scroll-margin: 40px;
 }

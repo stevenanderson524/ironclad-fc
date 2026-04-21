@@ -7,7 +7,7 @@
   --carousel-indicators-gap: 6px 12px;
   --carousel-indicators-padding: 12px;
   --carousel-indicator-size: 24px;
-  --carousel-indicator-background: #dadada;
+  --carousel-indicator-background: var(--secondary-color);
   --carousel-indicator-active-background: var(--text-color);
   --carousel-nav-inset: 12px;
   --carousel-nav-inset-desktop: 24px;

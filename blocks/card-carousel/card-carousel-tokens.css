@@ -3,14 +3,14 @@
   --card-carousel-slide-min-width: 257px;
   --card-carousel-gap: 24px;
   --card-carousel-card-border-width: 1px;
-  --card-carousel-card-border-color: #dadada;
+  --card-carousel-card-border-color: var(--secondary-color);
   --card-carousel-card-body-margin: 16px;
   --card-carousel-image-aspect-ratio: 4 / 3;
   --card-carousel-image-object-fit: cover;
   --card-carousel-indicators-gap: 6px 12px;
   --card-carousel-indicators-padding: 12px;
   --card-carousel-indicator-size: 24px;
-  --card-carousel-indicator-background: #dadada;
+  --card-carousel-indicator-background: var(--secondary-color);
   --card-carousel-indicator-active-background: var(--text-color);
   --card-carousel-nav-inset: 12px;
   --card-carousel-nav-inset-desktop: 24px;
