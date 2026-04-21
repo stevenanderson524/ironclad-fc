@@ -16,6 +16,7 @@ export default function decorate(block) {
 
   const list = document.createElement('ul');
   list.className = 'swatches-list';
+  list.setAttribute('aria-label', 'Brand color palette');
 
   swatches.forEach(({ name, hex, usage }, i) => {
     const li = document.createElement('li');

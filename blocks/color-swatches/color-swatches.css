@@ -12,8 +12,9 @@ main .color-swatches .swatch {
   flex-direction: column;
   opacity: 0;
   transform: translateX(-12px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-  transition-delay: var(--swatch-delay, 0ms);
+  transition:
+    opacity 0.4s ease-out var(--swatch-delay, 0ms),
+    transform 0.4s ease-out var(--swatch-delay, 0ms);
 }
 
 main .color-swatches .swatch.swatch-visible {
