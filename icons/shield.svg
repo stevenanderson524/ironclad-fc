@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="100" viewBox="0 0 88 100" aria-hidden="true">
+  <path d="M44 2 L82 22 L82 66 L44 98 L6 66 L6 22 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"/>
+  <path d="M44 14 L72 28 L72 62 L44 84 L16 62 L16 28 Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+  <text x="44" y="62" text-anchor="middle" font-family="'Roboto Slab',Georgia,serif" font-weight="900" font-size="36" fill="currentColor" letter-spacing="-1">IC</text>
+  <rect x="30" y="70" width="28" height="3" fill="var(--shield-accent,#FF4500)"/>
+</svg>

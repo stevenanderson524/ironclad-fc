@@ -1,0 +1,26 @@
+/* Shared utilities for brand site pages */
+
+.ic-eyebrow {
+  font-family: var(--fixed-font-family);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ic-grid-bg {
+  background-image:
+    linear-gradient(rgba(245, 244, 240, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 244, 240, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+@keyframes ic-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes ic-flare {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
