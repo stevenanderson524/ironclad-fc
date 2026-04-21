@@ -7,18 +7,19 @@ export default function decorate(block) {
       hex: cells[1]?.textContent.trim() || '',
       usage: cells[2]?.textContent.trim() || '',
     };
-  }).filter(({ hex }) => hex);
+  }).filter(({ hex }) => /^#[0-9a-f]{3,6}$/i.test(hex));
 
   const grid = document.createElement('div');
   grid.className = 'swatches-grid';
   grid.setAttribute('aria-label', 'Brand colour palette');
 
   swatches.forEach(({ name, hex, usage }, i) => {
+    const normalHex = hex.toLowerCase();
     const col = document.createElement('div');
     col.className = `swatches-col${i === 0 ? ' swatches-col-wide' : ''}`;
-    col.style.setProperty('--swatch-bg', hex);
+    col.style.setProperty('--swatch-bg', normalHex);
 
-    const fg = hex === '#F5F4F0' || hex.toLowerCase() === '#ff6b35' ? '#0d0d0d' : '#f5f4f0';
+    const fg = normalHex === '#f5f4f0' || normalHex === '#ff6b35' ? '#0d0d0d' : '#f5f4f0';
 
     const nameEl = document.createElement('div');
     nameEl.className = 'swatches-name';
@@ -57,7 +58,7 @@ export default function decorate(block) {
     { flex: 60, bg: '#0D0D0D', fg: '#F5F4F0', label: 'IRON BLACK · 60%' },
     { flex: 25, bg: '#F5F4F0', fg: '#0D0D0D', label: 'FORGE WHITE · 25%' },
     { flex: 10, bg: '#FF4500', fg: '#0D0D0D', label: 'ORANGE · 10%' },
-    { flex: 5,  bg: '#3A3A3A', fg: '#F5F4F0', label: 'STEEL · 5%' },
+    { flex: 5, bg: '#3A3A3A', fg: '#F5F4F0', label: 'STEEL · 5%' },
   ];
 
   segs.forEach(({ flex, bg, fg, label }) => {
