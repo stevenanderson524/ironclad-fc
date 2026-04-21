@@ -9,6 +9,29 @@
   position: relative;
   padding: var(--hero-padding);
   min-height: var(--hero-min-height);
+  display: flex;
+  align-items: flex-end;
+}
+
+/* gradient scrim — dark bottom fade keeps text legible over any image */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to top,
+    rgb(13 13 13 / 95%) 0%,
+    rgb(13 13 13 / 55%) 40%,
+    rgb(13 13 13 / 10%) 100%
+  );
+  pointer-events: none;
+}
+
+.hero > div {
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .hero h1 {
@@ -16,7 +39,9 @@
   margin-left: auto;
   margin-right: auto;
   color: var(--text-color);
-  text-shadow: 0 2px 8px rgb(0 0 0 / 60%);
+  text-shadow: 0 2px 12px rgb(0 0 0 / 70%);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .hero picture {
@@ -36,5 +61,6 @@
 @media (width >= 900px) {
   .hero {
     padding: var(--hero-padding-desktop);
+    min-height: var(--hero-min-height-desktop);
   }
 }

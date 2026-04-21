@@ -185,11 +185,11 @@ a {
   color: var(--link-color);
   text-decoration: none;
   overflow-wrap: break-word;
+  transition: color 0.15s;
 }
 
 a:hover {
   color: var(--link-hover-color);
-  text-decoration: underline;
 }
 
 /* buttons */
@@ -200,20 +200,24 @@ button {
   max-width: 100%;
   margin: 12px 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
+  border-radius: 2px;
+  padding: 0.5em 1.4em;
   font-family: var(--body-font-family);
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.08em;
   line-height: 1.25;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
   background-color: var(--link-color);
   color: var(--background-color);
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 a.button:hover,
@@ -311,4 +315,22 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+main .section.highlight {
+  border-top: 3px solid var(--highlight-color);
+}
+
+/* section heading accent — short Iron Orange rule under h2 */
+main .default-content-wrapper h2 {
+  padding-bottom: 4px;
+}
+
+main .default-content-wrapper h2::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--highlight-color);
+  margin-top: 10px;
 }

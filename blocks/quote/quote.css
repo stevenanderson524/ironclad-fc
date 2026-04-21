@@ -4,6 +4,8 @@
   margin: 0 auto;
   padding: var(--quote-padding);
   max-width: var(--quote-max-width);
+  border-left: 3px solid var(--highlight-color);
+  padding-left: 28px;
 }
 
 @media (width >= 900px) {
@@ -23,6 +25,7 @@
 .quote blockquote .quote-quotation p:first-child::before,
 .quote blockquote .quote-quotation p:last-child::after {
   line-height: 0;
+  color: var(--highlight-color);
 }
 
 .quote blockquote .quote-quotation p:first-child::before {
