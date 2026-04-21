@@ -51,11 +51,8 @@ export default function decorate(block) {
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const { id } = entry.target;
-      ul.querySelectorAll('a').forEach((a) => {
-        a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
-      });
+      const link = ul.querySelector(`a[href="#${entry.target.id}"]`);
+      if (link) link.classList.toggle('active', entry.isIntersecting);
     });
   }, {
     threshold: 0.3,
