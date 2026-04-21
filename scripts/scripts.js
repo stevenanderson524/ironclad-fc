@@ -473,8 +473,13 @@ function initScrollReveal() {
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('main .section').forEach((section) => {
-    section.classList.add('reveal');
-    observer.observe(section);
+    const { top } = section.getBoundingClientRect();
+    if (top < window.innerHeight) {
+      section.classList.add('reveal', 'is-visible');
+    } else {
+      section.classList.add('reveal');
+      observer.observe(section);
+    }
   });
 }
 
@@ -519,7 +524,7 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+  await loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
   initScrollReveal();
 }
