@@ -1,3 +1,7 @@
+.section:has(.marquee-wrapper) {
+  padding: 0;
+}
+
 .marquee-wrapper {
   max-width: 100%;
   padding: 0;
