@@ -14,3 +14,7 @@ localhost-key.pem
 Trace*.json
 .migration/*
 .superpowers/
+
+.hlx/.da-token.json
+
+content
