@@ -2,7 +2,7 @@
 
 ## What this project is
 AEM Edge Delivery Services (EDS) demo site for a fictitious football club called **Ironclad FC**.
-Built to demonstrate Adobe AEM to the NFL and other sports organizations.
+Built to demonstrate Adobe AEM to sports organizations.
 
 ## Architecture
 - **Code layer:** This GitHub repo — blocks, styles, scripts only
