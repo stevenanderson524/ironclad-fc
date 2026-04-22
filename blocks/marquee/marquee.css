@@ -1,6 +1,6 @@
 .marquee {
   overflow: hidden;
-  background: var(--text-color);
+  background: var(--surface-color);
   color: #0d0d0d;
   border-top: var(--marquee-border) solid var(--highlight-color);
   border-bottom: var(--marquee-border) solid var(--highlight-color);

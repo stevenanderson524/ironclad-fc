@@ -1,4 +1,7 @@
 :root {
   --brand-overview-min-height: 360px;
-  --brand-overview-border: rgb(245 244 240 / 14%);
+  --brand-overview-border: rgb(13 13 13 / 14%);
+  --brand-overview-bg: var(--surface-color);
+  --brand-overview-text: var(--background-color);
+  --brand-overview-muted: rgb(13 13 13 / 50%);
 }

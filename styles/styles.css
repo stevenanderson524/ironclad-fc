@@ -24,6 +24,7 @@
   --highlight-color: #ff4500;        /* Iron Orange */
   --secondary-color: #3a3a3a;        /* Steel */
   --hover-color: #ff6b35;            /* Ember */
+  --surface-color: #faf3e0;          /* Parchment — light section backgrounds */
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;

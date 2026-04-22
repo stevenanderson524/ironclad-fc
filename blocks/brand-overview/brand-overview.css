@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid var(--brand-overview-border);
+  background: var(--brand-overview-bg);
 }
 
 .brand-overview-col {
@@ -28,7 +29,7 @@
 .brand-overview-shield svg {
   width: 141px;
   height: 160px;
-  color: var(--text-color);
+  color: var(--brand-overview-text);
 }
 
 .brand-overview-swatch {
@@ -54,7 +55,7 @@
   font-family: var(--heading-font-family);
   font-weight: 900;
   font-size: 200px;
-  color: var(--text-color);
+  color: var(--brand-overview-text);
   line-height: 0.85;
   letter-spacing: -0.05em;
 }
@@ -67,14 +68,14 @@
   font-family: var(--heading-font-family);
   font-weight: 900;
   font-size: 22px;
-  color: var(--text-color);
+  color: var(--brand-overview-text);
   text-transform: uppercase;
   letter-spacing: -0.01em;
   line-height: 1.1;
 }
 
 .brand-overview-spec {
-  color: rgb(245 244 240 / 55%);
+  color: var(--brand-overview-muted);
   margin-top: 6px;
 }
 
