@@ -1,4 +1,7 @@
 :root {
-  --brand-pillars-border: rgb(245 244 240 / 14%);
+  --brand-pillars-border: rgb(13 13 13 / 14%);
   --brand-pillars-min-height: 260px;
+  --brand-pillars-bg: var(--surface-color);
+  --brand-pillars-text: var(--background-color);
+  --brand-pillars-muted: rgb(13 13 13 / 55%);
 }

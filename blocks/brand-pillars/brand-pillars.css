@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 1px solid var(--brand-pillars-border);
+  background: var(--brand-pillars-bg);
 }
 
 .brand-pillars-item {
@@ -29,7 +30,7 @@
   font-family: var(--heading-font-family);
   font-weight: 900;
   font-size: 38px;
-  color: var(--text-color);
+  color: var(--brand-pillars-text);
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -37,7 +38,7 @@
 }
 
 .brand-pillars-item p {
-  color: rgb(245 244 240 / 55%);
+  color: var(--brand-pillars-muted);
   font-size: 16px;
   line-height: 1.55;
   max-width: 520px;
